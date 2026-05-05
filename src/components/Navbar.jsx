@@ -2,6 +2,11 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import logo from "../assets/red-dimond-premium-svgrepo-com.svg";
 import { navItems } from "../constants";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect } from 'react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Navbar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);

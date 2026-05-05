@@ -8,7 +8,7 @@ import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename='/dating-site'>
     <Routes>
       <Route path='/' element={<App/>}/>
       <Route path='profiles' element={<Profiles/>}/>

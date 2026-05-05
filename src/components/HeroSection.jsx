@@ -3,8 +3,11 @@ import video1 from "../assets/3704252-uhd_4096_2160_25fps (2).mp4";
 import video2 from "../assets/5667124-uhd_4096_2160_30fps (2).mp4";
 import Image1 from "../assets/Screenshot (89).png"
 import Image2 from "../assets/Screenshot (90).png"
-import gsap from "gsap";
 import { useNavigate } from "react-router-dom";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const HeroSection = () => {
 
@@ -23,20 +26,39 @@ const HeroSection = () => {
   }, [])
   */
 
-  return (
+  useEffect(() => {
+    gsap.fromTo(".hero-section-one, .hero-section-two, .hero-section-three, .hero-section-four", {
+      y: 30,
+      opacity: 0,
+    }, {
+      y: 0,
+      opacity: 1,
+      delay: 0.5,
+      duration: 1.5,
+      ease: "power3.out",
+      stagger: 0.5,
+      scrollTrigger: {
+        trigger: ".hero-section",
+        start: "top 90%",
+        toggleActions: "play none none none",
+      }
+    }
+  )
+  }, [])
 
-    <div className="flex flex-col items-center mt-6 lg:mt-20">
-      <h1 className="text-4xl sm:text-6xl lg:text-7xl text-center tracking-wide">
+  return (
+    <div className="hero-section flex flex-col items-center mt-6 lg:mt-20">
+      <h1 className="hero-section-one text-4xl sm:text-6xl lg:text-7xl text-center tracking-wide">
         DatingR find the love
         <span className="bg-gradient-to-r from-red-600 to-red-800 text-transparent bg-clip-text">
           {" "}
         of your life
         </span>
       </h1>
-      <p className="desc-p mt-10 text-lg text-center text-neutral-500 max-w-4xl">
+      <p className="hero-section-two desc-p mt-10 text-lg text-center text-neutral-500 max-w-4xl">
         Who doesn't want a <span className="font-bold">perfect</span> partner? the kind that feels more like he's your one and only soulmate. Not just someone to date… but someone who feels like they were made for you.
       </p>
-      <div className="flex justify-center my-10">
+      <div className="hero-section-three flex justify-center my-10">
         <a onClick={() => navigate('profiles')}
           className="bg-red-800 py-3 px-4 mx-3 rounded-md border border-gray-950
           hover:bg-white hover:text-black transition-all duration-300 cursor-pointer"
@@ -48,7 +70,7 @@ const HeroSection = () => {
           Do a form
         </a>
       </div>
-      <div className="flex mt-10 justify-center">
+      <div className="hero-section-four flex mt-10 justify-center">
         <video
           autoPlay
           loop

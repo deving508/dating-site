@@ -81,13 +81,13 @@ export const features = [
     icon: <Building />,
     text: "Nicely Designed",
     description:
-      "Designed to feel simple, modern, and engaging, so exploring profiles stays effortless and genuinely enjoyable. (not really)",
+      "Designed to feel simple, modern, and engaging, so exploring profiles stays effortless and genuinely enjoyable.",
   },
   {
     icon: <Rose />, 
     text: "Quality Interactions",
     description:
-      "A curated experience focused on quality interactions instead of overwhelming choices and meaningless matches.",
+      "An experience focused on quality interactions instead of overwhelming choices and meaningless matches.",
   },
   {
     icon: <IterationCcw />,
