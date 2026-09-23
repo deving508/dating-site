@@ -68,7 +68,7 @@ button {
 }
 
 .profile-container {
-background: linear-gradient(270deg, rgb(20, 20, 20), rgb(21, 21, 21), rgb(19, 19, 19));
+background: linear-gradient(70deg, rgb(20, 20, 20), rgb(9, 9, 9), rgb(29, 29, 29));
 background-size: 400% 400%;
 animation: moveGradient 5s ease infinite;
 }
