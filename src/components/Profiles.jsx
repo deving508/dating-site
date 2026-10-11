@@ -14,6 +14,10 @@ import Image11 from '../assets/Pictures/Profiles/download (3).jpg'
 import Image12 from '../assets/Pictures/Profiles/touma.jpg'
 import Image13 from '../assets/Pictures/Profiles/WhatsApp Image 2026-03-24 at 3.06.57 PM (1).jpeg'
 import Image14 from '../assets/Pictures/Profiles/WhatsApp Image 2026-03-24 at 2.39.47 PM (1).jpeg'
+import Image15 from '../assets/Pictures/Profiles/Dekuverse (Lots Of Angst).jpg'
+import Image16 from '../assets/Pictures/Profiles/WhatsApp Image 2026-10-11 at 13.49.41-resized-to-416x416.jpeg'
+import Image17 from '../assets/Pictures/Profiles/WhatsApp Image 2026-10-11 at 13.49.41 (2)-resized-to-416x416.jpeg'
+import Image18 from '../assets/Pictures/Profiles/WhatsApp Image 2026-10-11 at 13.49.41 (1)-resized-to-416x416.jpeg'
 import Loc from "../assets/Pictures/Profiles/location.png";
 import gsap from "gsap";
 
@@ -94,12 +98,22 @@ export default function Profiles() {
     },
     {
       type: "profile",
+      img: Image13,
+      name: "Ermo",
+      age: 18,
+      location: "Kurdistan",
+      bio: "Bio",
+      desc: "Yeahh he's kurdish so of course you'd think he's a dirty sewers rat and well you woudn't be wrong if you thought that. He's a complete disgrace to his family and his loved ones. On top of all that he's a pedophile and his parents are actually siblings, doesn't get much worse honestly. And no i'm not joking about any of that.",
+      dc: "sucking_on_a_lolipop"
+    },
+    {
+      type: "profile",
       img: Image7,
       name: "et bomb",
       age: 16,
       location: "No idea",
       bio: "Bio",
-      desc: "Bomb is 6'1 , wealthy and quite the gentleman. Unlike most creatures you've seen so far, this guy isn't nice or kind or anything like that. He is fun to be around tho , well as long as you aren't a jew or black. He's VERY straightforward and funny as fuck too. It gets a bit too crazy when you're around him but if you love some drama then he's for you.",
+      desc: "Bomb is 6'1 , wealthy and quite the gentleman. Unlike most creatures you've seen so far, this guy isn't nice or kind or anything like that. He is fun to be around tho , well as long as you aren't jewish or black. He's VERY straightforward and funny as fuck too. It gets a bit too crazy when you're around him but if you love someone to create drama with, then he's for you.",
       dc: "et_bomb3"
     },
     {
@@ -109,18 +123,19 @@ export default function Profiles() {
       age: 17,
       location: "Somewhere",
       bio: "Bio",
-      desc: "Delta is also a pretty special occasion , he's.. i mean he's definitely something, just not sure what. I mean he's slow as FUCK but he's a really nice guy at least?? well apart from when he's spammming the hard R. If you're a little retarded yourself then i suggest you hit him up. Otherwise just skip him.",
+      desc: "Delta is also a pretty special occasion , he's.. actually BLACK and slow as FUCK but he's a really nice guy at least?? All things considered he's pretty chill and kindhearted. If you're a little slow yourself then i guess could you hit him up. Otherwise just skip him.",
       dc: "p8qzoo"
     },
     {
       type: "profile",
       img: Image13,
-      name: "Ermo",
+      images: [Image16, Image17, Image18],
+      name: "Haz",
       age: 18,
-      location: "Kurdistan",
+      location: "India",
       bio: "Bio",
-      desc: "Yeahh he's kurdish so of course you'd think he's a dirty sewers rat and well you woudn't be wrong if you thought that. He's a complete disgrace to his family and his loved ones. On top of all that he's a pedophile and his parents are actually siblings, doesn't get much worse honestly. And no i'm not joking about any of that.",
-      dc: "sucking_on_a_lolipop"
+      desc: "Biggest BUM you've ever seen in your life. Genuine disgrace to humanity and a waste of resorces. A dissapointment to his family and loved ones. Don't EVER text this pathetic loser, well unless all you want is attention and absolutely nothing else, then i guess you could?? but i highly suggest you don't settle for creatures like this.",
+      dc: "mane_hazz"
     },
      {
       type: "profile",
@@ -145,14 +160,25 @@ export default function Profiles() {
     {
       type: "profile",
       img: Image14,
+      name: "Zane",
+      age: 16,
+      location: "???",
+      bio: "Bio",
+      desc: "Zane is actually a really chill guy whose passion is helping women out. He loves doing research on how to get rid of periods and overall make women's lives much easier. He volunteers at a pet shelter in his spare time and advocates for women's rights. VERY chill, rich, handsome and emotionally mature.",
+      dc: "zane0pi"
+    },
+    {
+      type: "profile",
+      img: Image15,
       name: "Johan",
       age: 16,
       location: "???",
       bio: "Bio",
-      desc: "Don't get the wrong idea off of his name because he's actually a really chill guy whose passion is helping women out. He loves doing research on how to get rid of periods and overall make women's lives much easier. He volunteers at a pet shelter in his spare time and advocates for women's rights.",
+      desc: "Retarded, alcoholic, beats women in his spare time, throat goat, degrading kink, genuinely a terrible person who manipulates women and thinks they're tools. He's mentally ill, eats rats, looks like Jon Brower Minnoch, showers twice a year, worships EDP445, and last but not least, he's attracted to 12 year olds AND his own cousins.",
       dc: "dr.dingleberry67"
     },
     {
+
       type: "profile",
       img: Image10,
       name: "Toast",
@@ -242,6 +268,18 @@ const OpenForm = () => {
 function ProfileCard({ profile }) {
 
    const [copied, setCopied] = useState(false);
+  const [imageIndex, setImageIndex] = useState(0);
+
+
+  useEffect(() => {
+    if (!profile.images || profile.images.length < 2) return;
+
+    const intervalId = window.setInterval(() => {
+      setImageIndex((currentIndex) => (currentIndex + 1) % profile.images.length);
+    }, 6000);
+
+    return () => window.clearInterval(intervalId);
+  }, [profile.images]);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(profile.dc);
@@ -252,12 +290,26 @@ function ProfileCard({ profile }) {
 
   const boxRef = useRef();
   const roseRef = useRef(null);
+  const imageRef = useRef(null);
+
+  useEffect(() => {
+    if (!profile.images || !imageRef.current) return;
+
+    const animation = gsap.fromTo(
+      imageRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 1.6, ease: "power1.out" }
+    );
+
+    return () => animation.kill();
+  }, [imageIndex, profile.images]);
 
   return (
     <div ref={boxRef} className="profile-container border-2 border-gray-700 rounded-sm min-h-dvh text-white pl-2 shadow-2xl flex flex-col gap-5 items-start pb-10 pr-14">
       <section className="profile-img flex justify-center items-center pt-4">
         <img
-          src={profile.img}
+          ref={imageRef}
+          src={profile.images?.[imageIndex] ?? profile.img}
           alt={profile.name}
           className="profile-stagger img-prof w-50 border-3 border-white rounded-4xl xs:w-65 md:w-80 mb-5"
         />
@@ -345,15 +397,15 @@ function Ending() {
 function Starting() {
   return (
     <div className="ending-container w-full h-screen bg-black text-white flex flex-col justify-center items-center text-center px-6">
-      <h2 className="ending-sec-p text-gray-400 text-2xl md:text-4xl font-bold mb-4">Just a quick word before you start !!</h2>
+      <h2 className="ending-sec-p text-gray-200 text-2xl md:text-4xl font-bold mb-4">Just a quick word before you start !!</h2>
       <section className="flex flex-col justify-center items-center gap-2 max-w-2xl">
-        <p className="ending-sec-p text-sm md:text-lg mx-2">
-          The profiles you are about to see are quite.. let's say, unique.
+        <p className="ending-sec-p text-sm md:text-lg mx-2 text-start">
+          The profiles you are about to see are VERY unique.
           Now if you couldn't tell, this is supposed to be kind of like a tinder website, but just the temu version.
-          Belive it or not you are almost GUARANTEED to find the love of your life here, well unless you're black or jewish, then you might have a bit of a hard time. If not then you're chillin.
+          Belive it or not you are almost GUARANTEED to find the love of your life here, well unless you're black or jewish, then you will have kind of a hard time. If not then you're chillin.
           Now of course if you have any ideas about how i could improve the website then of course you can lmk.
           With that said you can start swiping right through the profiles.
-          Have fun. or not. Up to you.
+          Have fun and try not to fall in love too much.
         </p>
       </section>
     </div>
