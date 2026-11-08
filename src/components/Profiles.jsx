@@ -196,10 +196,14 @@ export default function Profiles() {
   const [index, setIndex] = useState(0);
 
   const handlers = useSwipeable({
-    onSwipedLeft: () =>
-      setIndex((i) => Math.min(i + 1, profiles.length - 1)),
-    onSwipedRight: () =>
-      setIndex((i) => Math.max(i - 1, 0)),
+    onSwipedLeft: () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) return;
+      setIndex((i) => Math.min(i + 1, profiles.length - 1));
+    },
+    onSwipedRight: () => {
+      if (window.matchMedia("(min-width: 1024px)").matches) return;
+      setIndex((i) => Math.max(i - 1, 0));
+    },
     trackMouse: true,
     preventScrollOnSwipe: false,
   });
@@ -254,7 +258,27 @@ export default function Profiles() {
       )}
 
       {profiles[index].type === "ending" && <Ending />}
-      {profiles[index].type === "start" && <Starting />}
+      {profiles[index].type === "start" && <Starting onSkip={() => setIndex(1)} />}
+      {profiles[index].type === "profile" && (
+        <>
+          <button
+            type="button"
+            aria-label="Previous profile"
+            onClick={() => setIndex((i) => Math.max(i - 1, 0))}
+            className="hidden lg:flex fixed left-6 bottom-5 z-20 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/10 px-4 py-1 text-4xl text-white/80 transition hover:bg-white hover:text-black"
+          >
+            &#8592;
+          </button>
+          <button
+            type="button"
+            aria-label="Next profile"
+            onClick={() => setIndex((i) => Math.min(i + 1, profiles.length - 1))}
+            className="hidden lg:flex fixed right-6 bottom-5 z-20 -translate-y-1/2 items-center justify-center rounded-full border border-white/40 bg-black/10 px-4 py-1 text-4xl text-white/80 transition hover:bg-white hover:text-black"
+          >
+            &#8594;
+          </button>
+        </>
+      )}
       </div>
     </div>
   );
@@ -394,7 +418,7 @@ function Ending() {
   );
 }
 
-function Starting() {
+function Starting({ onSkip }) {
   return (
     <div className="ending-container w-full h-screen bg-black text-white flex flex-col justify-center items-center text-center px-6">
       <h2 className="ending-sec-p text-gray-200 text-2xl md:text-4xl font-bold mb-4">Just a quick word before you start !!</h2>
@@ -408,6 +432,13 @@ function Starting() {
           Have fun and try not to fall in love too much.
         </p>
       </section>
+      <button
+        type="button"
+        onClick={onSkip}
+        className="ending-sec-p start-over-btn border px-6 py-2 rounded-xl font-medium mt-8"
+      >
+        Skip
+      </button>
     </div>
   );
 }
